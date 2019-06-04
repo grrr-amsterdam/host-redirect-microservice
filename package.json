@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "serverless": "^1.44.1",
+    "serverless-dotenv-plugin": "https://github.com/harmenjanssen/serverless-dotenv-plugin/"
+  },
+  "scripts": {
+    "test": "node test/redirect.js"
+  }
+}

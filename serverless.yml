@@ -1,0 +1,26 @@
+service: HostRedirect
+
+provider:
+    name: aws
+    # Note: region has to be us-east-1 for the function to be used as Lambda@Edge
+    region: us-east-1
+    stage: ${opt:stage, 'development'}
+    runtime:
+    role: ${env:SERVERLESS_ROLE}
+    timeout: 30
+    profile: ${env:AWS_PROFILE}
+    deploymentBucket:
+        name: ${env:SERVERLESS_DEPLOYMENTS_BUCKET}
+
+package:
+    exclude:
+        - .env
+        - .env.staging
+        - .env.production
+
+functions:
+    redirect:
+        handler: src/redirect.js
+
+plugins:
+  - serverless-dotenv-plugin
