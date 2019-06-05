@@ -1,9 +1,15 @@
 {
-  "dependencies": {
-    "serverless": "^1.44.1",
-    "serverless-dotenv-plugin": "https://github.com/harmenjanssen/serverless-dotenv-plugin/"
-  },
+  "name": "www-redirect",
+  "version": "1.0.0",
+  "main": "src/redirect.js",
+  "repository": "git@github.com:grrr-amsterdam/host-redirect-microservice.git",
+  "author": "Harmen Janssen <harmen@grrr.nl>",
+  "license": "MIT",
   "scripts": {
     "test": "node test/redirect.js"
+  },
+  "devDependencies": {
+    "serverless": "^1.44.1",
+    "serverless-dotenv-plugin": "https://github.com/harmenjanssen/serverless-dotenv-plugin/"
   }
 }
