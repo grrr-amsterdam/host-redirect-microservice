@@ -1,6 +1,7 @@
 /**
  * Redirect from Lambda@Edge from an origin hostname to a target hostname.
  */
+const redirectRules = require('../redirect_rules.json');
 
 // Read host from the given Request object
 const getHost = request =>
@@ -9,11 +10,11 @@ const getHost = request =>
   : undefined;
 
 // Find the redirect target belonging to the given host, or undefined if none exists.
-const findTarget = (host, n = 1) => typeof process.env[`REDIRECT_ORIGIN_${n}`] === 'undefined'
+const findTarget = (host, [rule, ...rules]) => typeof rule === 'undefined'
   ? undefined
-  : process.env[`REDIRECT_ORIGIN_${n}`] === host
-    ? process.env[`REDIRECT_TARGET_${n}`]
-    : findTarget(host, n + 1);
+  : rule.origin === host
+    ? rule.target
+    : findTarget(host, rules);
 
 // Export for testing purposes.
 exports.findTarget = findTarget;
@@ -26,7 +27,7 @@ exports.handler = async (event) => {
     return request;
   }
 
-  const alternativeHostname = findTarget(hostname);
+  const alternativeHostname = findTarget(hostname, redirectRules.rules);
   if (typeof alternativeHostname === 'undefined') {
     return request;
   }

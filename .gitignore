@@ -4,3 +4,5 @@
 .env.staging
 .env.production
 .DS_Store
+
+/redirect_rules.json

@@ -4,7 +4,8 @@ Redirect any request to another hostname by using this function as Lambda@Edge.
 
 ## Usage
 
-Create a `.env` (and/or `.env.staging` and `.env.production` if you like, or any stage you'd like).
+Create a `.env` (and/or `.env.staging` and `.env.production` if you like, or any stage you'd like).  
+Note that the environment variables are used solely for deployment – a Lambda@Edge function cannot have environment variables.
 
 Deploy the function to your AWS environment, publish a version, and use the ARN of the specific version in a `Viewer Request` event handler. This can be configured under *Behaviors* in your CloudFront distribution.
 
@@ -12,15 +13,24 @@ The role that executes this function should have the permissions as described in
 
 ## Configure
 
-Configure one or multiple host-mappings, in your `.env` file, as follows:
+Create the file `redirect_rules.json`, in which you can add one or multiple host-mappings, like so:
 
+```js
+{
+  "rules": [
+    {
+      "origin": "www.example.com",
+      "target": "example.com"
+    },
+    {
+      "origin": "www.foo.com",
+      "target": "com.bar.www"
+    }
+  ]
+}
 ```
-REDIRECT_ORIGIN_1=www.example.com
-REDIRECT_TARGET_1=example.com
 
-REDIRECT_ORIGIN_2=www.foo.bar
-REDIRECT_TARGET_2=www.bar.foo
-```
+The hostname will be replaced 1:1, no magic is involved.
 
 ## Deploy
 

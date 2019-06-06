@@ -3,25 +3,25 @@
 const { findTarget } = require('../src/redirect');
 
 // Blank slate
-process.env = {};
+assert(findTarget('www.example.com', []) === undefined);
 
-assert(findTarget('www.example.com') === undefined);
+const redirectRules = [
+  {
+    origin: 'www.example.com',
+    target: 'example.com'
+  }
+];
 
-process.env = {
-  REDIRECT_ORIGIN_1: 'www.example.com',
-  REDIRECT_TARGET_1: 'example.com'
-};
+assert(findTarget('www.example.com', redirectRules) === 'example.com');
+assert(findTarget('example.com', redirectRules) === undefined);
 
-assert(findTarget('www.example.com') === 'example.com');
-assert(findTarget('example.com') === undefined);
+redirectRules.push({ origin: 'www.foobar.com' });
 
-process.env.REDIRECT_ORIGIN_2 = 'www.foobar.com';
+assert(findTarget('www.foobar.com', redirectRules) === undefined);
 
-assert(findTarget('www.foobar.com') === undefined);
+redirectRules[1].target = 'foobar.com';
 
-process.env.REDIRECT_TARGET_2 = 'foobar.com';
-
-assert(findTarget('www.foobar.com') === 'foobar.com');
+assert(findTarget('www.foobar.com', redirectRules) === 'foobar.com');
 
 function assert(statement) {
   if (!statement) {
