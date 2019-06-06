@@ -2,15 +2,22 @@ service: HostRedirect
 
 provider:
     name: aws
-    # Note: region has to be us-east-1 for the function to be used as Lambda@Edge
+    # Note: region has to be us-east-1 for the function to be used as Lambda@Edge.
     region: us-east-1
     stage: ${opt:stage, 'development'}
     runtime:
     role: ${env:SERVERLESS_ROLE}
-    timeout: 30
+    # Timeout and memory size are hard Lambda@Edge limits.
+    timeout: 5
+    memorySize: 128
     profile: ${env:AWS_PROFILE}
     deploymentBucket:
         name: ${env:SERVERLESS_DEPLOYMENTS_BUCKET}
+
+custom:
+  dotenv:
+      # Note: it's not possible for a Lambda@Edge function to have environment variables.
+      include: []
 
 package:
     exclude:
