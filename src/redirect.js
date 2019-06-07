@@ -24,14 +24,25 @@ exports.handler = async (event) => {
   const request = event.Records[0].cf.request;
   const hostname = getHost(request);
   if (typeof hostname === 'undefined') {
+    console.log(`No Host header found for this request`);
     return request;
   }
 
   const alternativeHostname = findTarget(hostname, redirectRules.rules);
   if (typeof alternativeHostname === 'undefined') {
+    console.log(`No alternative hostname found for ${alternativeHostname}`);
     return request;
   }
 
-  request.headers.host[0].value = alternativeHostname;
-  return request;
+  console.log(`Redirecting ${hostname} to ${alternativeHostname}`);
+  return {
+    status: '301',
+    statusDescription: 'Redirect to apex domain.',
+    headers: {
+      location: [{
+        key: 'Location',
+        value: `https://${alternativeHostname}${request.uri}`
+      }]
+    }
+  };
 };
