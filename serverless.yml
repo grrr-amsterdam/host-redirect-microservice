@@ -27,7 +27,7 @@ package:
 
 functions:
     redirect:
-        handler: src/redirect.js
+        handler: src/redirect.handler
 
 plugins:
   - serverless-dotenv-plugin
