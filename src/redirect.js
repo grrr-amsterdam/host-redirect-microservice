@@ -37,7 +37,7 @@ exports.handler = async (event) => {
   console.log(`Redirecting ${hostname} to ${alternativeHostname}`);
   return {
     status: '301',
-    statusDescription: 'Redirect to apex domain.',
+    statusDescription: `Redirecting ${hostname} to ${alternativeHostname}`,
     headers: {
       location: [{
         key: 'Location',
