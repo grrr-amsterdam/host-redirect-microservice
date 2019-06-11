@@ -42,6 +42,10 @@ exports.handler = async (event) => {
       location: [{
         key: 'Location',
         value: `https://${alternativeHostname}${request.uri}`
+      }],
+      ['cache-control']: [{
+        key: 'Cache-Control',
+        value: 'max-age=0'
       }]
     }
   };
