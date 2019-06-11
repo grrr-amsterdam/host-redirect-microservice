@@ -41,7 +41,7 @@ exports.handler = async (event) => {
     headers: {
       location: [{
         key: 'Location',
-        value: `https://${alternativeHostname}${request.uri}`
+        value: `https://${alternativeHostname}${request.uri}${request.querystring ? '?' + request.querystring : ''}`
       }],
       ['cache-control']: [{
         key: 'Cache-Control',
