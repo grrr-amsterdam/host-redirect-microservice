@@ -10,11 +10,11 @@ const getHost = request =>
   : undefined;
 
 // Find the redirect target belonging to the given host, or undefined if none exists.
-const findTarget = (host, [rule, ...rules]) => typeof rule === 'undefined'
+const findTarget = (host, [rule, ...rules], prop = 'target') => typeof rule === 'undefined'
   ? undefined
   : rule.origin === host
-    ? rule.target
-    : findTarget(host, rules);
+    ? rule[prop]
+    : findTarget(host, rules, prop);
 
 // Export for testing purposes.
 exports.findTarget = findTarget;
@@ -34,6 +34,8 @@ exports.handler = async (event) => {
     return request;
   }
 
+  const targetCacheLifetime = findTarget(hostname, redirectRules.rules, 'max-age') || 0;
+
   console.log(`Redirecting ${hostname} to ${alternativeHostname}`);
   return {
     status: '301',
@@ -45,7 +47,7 @@ exports.handler = async (event) => {
       }],
       ['cache-control']: [{
         key: 'Cache-Control',
-        value: 'max-age=0'
+        value: `max-age=${targetCacheLifetime}`
       }]
     }
   };
