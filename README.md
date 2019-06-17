@@ -32,6 +32,24 @@ Create the file `redirect_rules.json`, in which you can add one or multiple host
 
 The hostname will be replaced 1:1, no magic is involved.
 
+### Cache lifetime
+
+Optionally, configure a `max-age` to determine the time this response will be cached:
+
+```js
+{
+  "rules": [
+    {
+      "origin": "www.example.com",
+      "target": "example.com",
+      "max-age": 86400
+    }
+  ]
+}
+```
+
+The above would cache the redirect 1 day. If omitted, a `Cache-Control` header of `max-age=0` (meaning no cache) will be set.
+
 ## Deploy
 
 You can use stages to deploy to `development`, `staging` and `production` (default: `development`).
