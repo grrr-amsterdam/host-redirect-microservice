@@ -1,6 +1,13 @@
 # Lambda@Edge hostname redirect
 
-Redirect any request to another hostname by using this function as Lambda@Edge.  
+Redirect any request to another hostname by using this function as Lambda@Edge.
+
+## Developed with ❤️ by [GRRR](https://grrr.nl)
+
+- GRRR is a [B Corp](https://grrr.nl/en/b-corp/)
+- GRRR has a [tech blog](https://grrr.tech/)
+- GRRR is [hiring](https://grrr.nl/en/jobs/)
+- [@GRRRTech](https://twitter.com/grrrtech) tweets
 
 ## Usage
 
