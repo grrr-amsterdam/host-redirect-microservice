@@ -3,7 +3,7 @@
 Redirect any request to another hostname by using this function as Lambda@Edge.
 
 > **Warning**  
-> Host redirecting can also be achieved with CloudFront Functions. We prefer that way because it's easier to maintain and cheeper. [We wrote a blogpost about it.](https://grrr.tech/posts/2023/cloudfront-www-redirect/)
+> Host redirecting can also be achieved with CloudFront Functions. We prefer that way because it's easier to maintain and cheaper. [We wrote a blogpost about it.](https://grrr.tech/posts/2023/cloudfront-www-redirect/)
 
 ## Developed with ❤️ by [GRRR](https://grrr.nl)
 
